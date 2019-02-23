@@ -98,6 +98,7 @@ clean_pid=$!
 do_it_3 000_AT_Utils Plugins/PluginData
 do_it_2 AnyRes PluginData
 do_it_2 BetterBurnTime PluginData
+do_it_2 BetterTimeWarp PluginData
 do_it_3 BonVoyage PluginData/BonVoyage
 do_it_4 Chatterer Plugins/PluginData/Chatterer
 do_it_4 CorrectCOL Plugins/PluginData/CorrectCoL
