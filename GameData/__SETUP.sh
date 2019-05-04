@@ -92,7 +92,7 @@ do_it_5() {
 }
 
 # Decluttering
-find . -name MiniAVC.dll -delete &
+find . -name MiniAVC.* -delete &
 clean_pid=$!
 
 do_it_3 000_AT_Utils Plugins/PluginData
