@@ -29,7 +29,7 @@ do_local() {
 	fi
 
 	if [ ! -e ./__LOCAL/$PLUGIN/$DATADIR ] ; then
-		mkdirs --parents ./__LOCAL/$PLUGIN/$DATADIR
+		mkdir --parents ./__LOCAL/$PLUGIN/$DATADIR
 	fi
 
 	if [ -d ./$PLUGIN/$DATADIR ] ; then
@@ -64,7 +64,7 @@ do_it() {
 		if [ -e ./$PLUGIN/$DATADIR ] ; then
 			mv ./$PLUGIN/$DATADIR ./$PLUGIN/$DATADIR.bkp
 		fi
-		ln -s $T/PluginData/$PLUGIN ./$PLUGIN/$DATADIR 
+		ln -s $T/PluginData/$PLUGIN ../$PLUGIN/$DATADIR 
 		echo Relinked $PLUGIN to ../PluginData.
 		return 0
 	fi
