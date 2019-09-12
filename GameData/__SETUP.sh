@@ -45,6 +45,17 @@ do_it() {
 	local PLUGIN=$2
 	local DATADIR=$3
 
+	if [ -d ../PluginData/$PLUGIN ] ; then
+		if [ -e ./$PLUGIN/$DATADIR ] ; then
+			mv ./$PLUGIN/$DATADIR ./$PLUGIN/$DATADIR.bkp
+		fi
+		pushd ./$PLUGIN
+		ln -s $T/PluginData/$PLUGIN ../$PLUGIN/$DATADIR 
+		popd
+		echo Relinked $PLUGIN to ../PluginData.
+		return 0
+	fi
+
 	if [ ! -e ./$PLUGIN/ ] ; then
 		echo $PLUGIN not found. Ignoring it.
 		return 0
@@ -57,15 +68,6 @@ do_it() {
 
 	if [ -L ./$PLUGIN/$DATADIR ] ; then
 		echo Nothing to do for $PLUGIN/$DATADIR.
-		return 0
-	fi
-
-	if [ -d ../PluginData/$PLUGIN ] ; then
-		if [ -e ./$PLUGIN/$DATADIR ] ; then
-			mv ./$PLUGIN/$DATADIR ./$PLUGIN/$DATADIR.bkp
-		fi
-		ln -s $T/PluginData/$PLUGIN ../$PLUGIN/$DATADIR 
-		echo Relinked $PLUGIN to ../PluginData.
 		return 0
 	fi
 
@@ -92,7 +94,7 @@ do_it_5() {
 }
 
 # Decluttering
-find . -name MiniAVC.* -delete &
+find . -name MiniAVC*.* -delete &
 clean_pid=$!
 
 do_it_3 000_AT_Utils Plugins/PluginData
