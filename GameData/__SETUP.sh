@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This file is part of KSP-Hacks, © 2018 LisiasT, and it's double licensed as follows
+# This file is part of KSP-Hacks, © 2018-21 LisiasT, and it's double licensed as follows
 #	SKL 1.0
 #	GPL 2.0
 # Pick the license that better suits yout needs.

@@ -1,10 +1,10 @@
-#! /bin/bash
+#! /usr/bin/env bash
 #
 # This file is better visualized configuring a TAB to be 4 spaces width
 #
 #
 #    This file is part of KSP hacks (http://ksp.lisias.net/add-ons/KSP-Hacks)
-#    (C) 2018-19 Lisias T : http://lisias.net <support@lisias.net>
+#    (C) 2018-21 Lisias T : http://lisias.net <support@lisias.net>
 #
 #        KSPe API Extensions/L is double licensed, as follows:
 #
