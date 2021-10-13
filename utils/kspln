@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+ROOT=~/Workspaces/KSP/runtime
+POOL=${ROOT}/_pool
+ksp=$1
+src=$2
+target=$3
+
+if [ -z "${target}" ] ; then
+	target="${src}"
+fi
+
+if [ ${ksp} != "." ] ; then
+	ksp=~/Workspaces/KSP/${ksp}
+fi
+
+if [ ! -d ${POOL}/${src} ] && [ ! -f ${POOL}/${src} ] ; then
+	echo "${POOL}/${src} does not exists!"
+	exit -1
+fi
+
+if [ -d ${ksp}/${target} ] || [ -f ${ksp}/${target} ] ; then
+	echo "${ksp}/${target} already exists!"
+	exit -2
+fi
+
+ln -s ${POOL}/${src} ${ksp}/${target}
