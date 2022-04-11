@@ -68,12 +68,12 @@ function process_depot() {
 	cd $depot
 	echo ""
 	echo Packing $version $app $depot
-#	7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=512m -ms=on -mmt=5 -r ../${filename}.7z *
-	7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=512m -ms=off -mmt=5 -r ../${filename}.7z *
-#	7z a -t7z -m9=bzip2 -mx=9 -ms=off -mmt=5 -r ../${filename}.7z *
+#	7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=512m -ms=on -mmt=5 -r ../${filename} *
+	7z a -t7z -m0=lzma2 -mx=9 -mfb=64 -md=512m -ms=off -mmt=5 -r ../${filename} *
+#	7z a -t7z -m9=bzip2 -mx=9 -ms=off -mmt=5 -r ../${filename} *
 	[ $? -eq 0 ] || exit -1
 	cd ..
-	check_depot #$version $app $depot
+	check_depot $version $app $depot
 	return 0
 }
 
