@@ -60,6 +60,7 @@ This work is **double licensed** as follows. Pick the license that better suits 
 		- You credit the author and republish the copyright notices on your works where the code is used.
 		- You relicense (and fully comply) your works using GPL 2.0 (or later)
 		- You don't mix your work with GPL incompatible works.
+			- Please note that upgrading the license to GPLv3 **IS NOT ALLOWED** for this work, as the author **DID NOT** added the "or (at your option) any later version" on the license.
 * If by some reason the GPL would be invalid for you, rest assured that you still retain the right to Use the Work under SKL 1.0. 
 
 Please note the copyrights and trademarks in [NOTICE](./NOTICE).
