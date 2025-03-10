@@ -1,6 +1,6 @@
 # KSP Hacks /L
 
-Hacks, workarounds and Gambiarras :P for KSP .
+Hacks, workarounds and Gambiarras 😅 for KSP .
 
 ## In a Hurry
 
@@ -20,20 +20,32 @@ Hacks, workarounds and Gambiarras :P for KSP .
 
 ## Description
 
-A collection of useful hacks and workarounds to be used on KSP. Some gambiarras included. :) 
+A collection of useful hacks and workarounds to be used on KSP. Some gambiarras included. 😆
+
+Among the many tools, the following stand out:
+
+### window_monitor
+
+A tool to pause applications when their Windows lose the Focus.
+
+Nice too to prevent memory/CPU guzzlers from screwing you when you are trying to do something else!
 
 
 ## Installation
 
-To install, place the GameData folder inside your Kerbal Space Program folder.
+To install the KSP assets, place the GameData folder inside your Kerbal Space Program folder.
 
 **REMOVE ANY OLD VERSIONS OF THE PRODUCT BEFORE INSTALLING**.
+
+The scripting tools should be added to a place where your `PATH` can find them, or alternatively you can edit your path adding the `utils` folder.
 
 ### Dependencies
 
 * BASH
 	+ Windows users should get away using Cygwin64
-		- Untested at the moment. 		
+		- Untested at the moment. 
+* Python 3
+	+ Anything beyound 3.7 should work, but I'm developing and testing on 3.11
 
 ### Licensing
 
@@ -68,4 +80,4 @@ Please note the copyrights and trademarks in [NOTICE](./NOTICE).
 
 ## UPSTREAM
 
-I **am** the upstream. :)
+There's no upstream, **I am (g)ROOT** 😎
