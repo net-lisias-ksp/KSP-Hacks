@@ -31,10 +31,25 @@
 # See https://forum.kerbalspaceprogram.com/index.php?/topic/199074-saving-disk-space-and-loading-times-on-macos/
 
 compress_apple() {
-	pushd $1
-	find . -name GameData -type d -exec afsctool -c -v -9 "{}/.." \;
+	pushd "$1"
+	find . -name . -type d -exec afsctool -c -v -9 "{}" \;
 	popd
 }
 
-compress_apple ~/Applications/Games/KSP/
-compress_apple ~/Workspaces/KSP/runtime/
+#compress_apple ~/Workspaces/KSP
+compress_apple ~/Workspaces/FoN
+#compress_apple ~/Workspaces/KSP/Documents/
+#compress_apple ~/Workspaces/KSP/runtime/
+#compress_apple ~/Downloads/_STEAM
+#compress_apple ~/Library/Thunderbird
+#compress_apple ~/temp/ksp
+#
+# SUDO!
+#compress_apple /usr/local
+#compress_apple /opt
+#compress_apple /Applications/
+#compress_apple ~/Applications
+#compress_apple ~/Applications/Games
+#compress_apple /Applications/Xcode.app
+#compress_apple /Library/Developer
+

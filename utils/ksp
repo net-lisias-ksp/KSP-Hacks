@@ -13,6 +13,10 @@ if [ ! -e ${ROOT}/${ksp} ] ; then
 fi
 
 set MONO_THREADS_PER_CPU=1
+set SSLKEYLOGFILE=~/.SSHKEY.log
 ksp=${ROOT}/${ksp}
 cd $ksp
-open $ksp/KSP.app
+open $ksp/KSP.app --args -crash-report-folder ~/temp/ksp
+pid=$(ps aux | grep -v grep |grep -i "KSP.app" | awk '{print $2;}')
+echo "PID = $pid"
+#echo "$(which nettop) -p $pid -L 0 ; rm /tmp/tmp.sh" > /tmp/ksp.tmp.sh ; chmod +x /tmp/ksp.tmp.sh ; open -a Terminal /tmp/ksp.tmp.sh
