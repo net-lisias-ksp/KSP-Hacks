@@ -132,7 +132,7 @@ def main(args:list):
 			if last_active_name in runtime.applications_of_interest and not runtime.is_application_running(last_active_name):
 				runtime.cont_application(last_active_name)
 
-	sleep(1)
+		sleep(1)
 
 
 if "__main__" == __name__:
