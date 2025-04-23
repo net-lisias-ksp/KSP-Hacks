@@ -90,7 +90,8 @@ class MacOS_Support(Support):
 	@property
 	def active_application(self) -> str:
 		r = self.NSWorkspace.sharedWorkspace().activeApplication()
-		return (r['NSApplicationName'], r['NSApplicationPath'])
+		return (r['NSApplicationName'], r['NSApplicationPath']) if r else ("None", "None")
+
 	def __execute(self, name:str, signal:str):
 		processes = self.application_of_interest[name]
 		for n in processes:
