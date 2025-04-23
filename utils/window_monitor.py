@@ -52,8 +52,10 @@ class Support:
 		self.currently_running = dict()
 		self.application_of_interest = dict()
 
-	def register(self, app_name:str, process_name:str):
-		self.application_of_interest[app_name] = process_name
+	def register(self, app_name:str, process_name_or_names):
+		processes = set()
+		(processes.add if isinstance(process_name_or_names, str) else processes.update)(process_name_or_names)
+		self.application_of_interest[app_name] = processes
 		self.currently_running[app_name] = True
 
 	def close(self):
@@ -62,14 +64,14 @@ class Support:
 				self.cont_application(name)
 
 	@property
-	def active_application(self) -> str:
+	def active_application(self) -> tuple:
 		raise NotImplementedError('Support.active_application')
 
 	@property
 	def applications_of_interest(self) -> list():
 		return self.application_of_interest.keys()
 
-	def is_application_running(self, name:str):
+	def is_application_running(self, name:str) -> bool:
 		return self.currently_running[name]
 
 	def stop_application(self, name:str):
@@ -89,16 +91,19 @@ class MacOS_Support(Support):
 	def active_application(self) -> str:
 		r = self.NSWorkspace.sharedWorkspace().activeApplication()
 		return (r['NSApplicationName'], r['NSApplicationPath'])
+	def __execute(self, name:str, signal:str):
+		processes = self.application_of_interest[name]
+		for n in processes:
+			subprocess.run(["killall", "-" + signal, n])
+		self.currently_running[name] = False
 
 	def stop_application(self, name:str):
 		log(f'Pausing {name}')
-		subprocess.run(["killall", "-STOP", self.application_of_interest[name]])
-		self.currently_running[name] = False
+		self.__execute(name, "STOP")
 
 	def cont_application(self, name:str):
 		log(f'Unpausing {name}')
-		subprocess.run(["killall", "-CONT", self.application_of_interest[name]])
-		self.currently_running[name] = True
+		self.__execute(name, "CONT")
 
 
 def main(args:list):
@@ -108,7 +113,7 @@ def main(args:list):
 	else:
 		runtime = Support()
 
-	runtime.register('Firefox', 'firefox')
+	runtime.register('Firefox', ['firefox', 'plugin-container'])
 	runtime.register('Safari', 'com.apple.WebKit.WebContent')
 	runtime.register('Chrome Chrome', 'Google Chrome Helper')
 	runtime.register('Kerbal Space Program', 'KSP')
