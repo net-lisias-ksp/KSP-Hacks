@@ -36,6 +36,11 @@
 ### On Windows
 # WIP
 
+import tracemalloc
+
+tracemalloc.start()
+
+
 import sys, os, platform
 import traceback
 import subprocess
@@ -82,6 +87,7 @@ class Support:
 
 
 class MacOS_Support(Support):
+	COMMAND_TABLE = {False : "STOP", True : "CONT" }
 	def __init__(self):
 		super().__init__()
 		from Cocoa import NSWorkspace
@@ -92,19 +98,19 @@ class MacOS_Support(Support):
 		r = self.NSWorkspace.sharedWorkspace().activeApplication()
 		return (r['NSApplicationName'], r['NSApplicationPath']) if r else ("None", "None")
 
-	def __execute(self, name:str, signal:str):
+	def __execute(self, name:str, state:bool):
 		processes = self.application_of_interest[name]
 		for n in processes:
-			subprocess.run(["killall", "-" + signal, n])
-		self.currently_running[name] = False
+			subprocess.run(["killall", "-" + MacOS_Support.COMMAND_TABLE[state], n])
+			self.currently_running[name] = state
 
 	def stop_application(self, name:str):
 		log(f'Pausing {name}')
-		self.__execute(name, "STOP")
+		self.__execute(name, False)
 
 	def cont_application(self, name:str):
 		log(f'Unpausing {name}')
-		self.__execute(name, "CONT")
+		self.__execute(name, True)
 
 
 def main(args:list):
@@ -117,7 +123,8 @@ def main(args:list):
 	runtime.register('Firefox', ['firefox', 'plugin-container'])
 	runtime.register('Safari', 'com.apple.WebKit.WebContent')
 	runtime.register('Chrome Chrome', 'Google Chrome Helper')
-	runtime.register('Kerbal Space Program', 'KSP')
+#	runtime.register('Kerbal Space Program', 'KSP')
+#	runtime.register('KSP', 'KSP')
 
 	def deinit():
 		log('Exiting!!! Restoring any paused applications...')
@@ -125,6 +132,7 @@ def main(args:list):
 	atexit.register(deinit)
 
 	last_active_name = None
+	snapshot = tracemalloc.take_snapshot()
 	while True:
 		active_app = runtime.active_application
 		if active_app[0] != last_active_name:
@@ -138,6 +146,13 @@ def main(args:list):
 			if last_active_name in runtime.applications_of_interest and not runtime.is_application_running(last_active_name):
 				runtime.cont_application(last_active_name)
 
+		continue
+		loop_snapshot = tracemalloc.take_snapshot()
+		top_stats = loop_snapshot.compare_to(snapshot, 'filename')
+		print("[ Top 10 ]")
+		for stat in top_stats[:10]:
+			print(stat)
+		print("---------------------")
 		sleep(1)
 
 
